@@ -128,3 +128,74 @@ func TestNonceFromBase64(t *testing.T) {
 		})
 	}
 }
+
+func TestNonceEqual(t *testing.T) {
+	tests := []struct {
+		name   string
+		n1     func() Nonce
+		n2     func() Nonce
+		expect bool
+	}{
+		{
+			name: "TestNonceEqual success",
+			n1: func() Nonce {
+				n, err := NonceFromBytes(bytes.Repeat([]byte{0x01}, CryptoSecretBoxNonceBytes))
+				if err != nil {
+					t.Fatal(err)
+				}
+				return n
+			},
+			n2: func() Nonce {
+				n, err := NonceFromBytes(bytes.Repeat([]byte{0x01}, CryptoSecretBoxNonceBytes))
+				if err != nil {
+					t.Fatal(err)
+				}
+				return n
+			},
+			expect: true,
+		},
+		{
+			name: "TestNonceEqual fail one",
+			n1: func() Nonce {
+				n, err := NonceFromBytes(bytes.Repeat([]byte{0x01}, CryptoSecretBoxNonceBytes))
+				if err != nil {
+					t.Fatal(err)
+				}
+				return n
+			},
+			n2: func() Nonce {
+				n, err := NonceFromBytes(bytes.Repeat([]byte{0x02}, CryptoSecretBoxNonceBytes))
+				if err != nil {
+					t.Fatal(err)
+				}
+				return n
+			},
+			expect: false,
+		},
+		{
+			name: "TestNonceEqual fail two",
+			n1: func() Nonce {
+				n, err := NewNonce()
+				if err != nil {
+					t.Fatal(err)
+				}
+				return n
+			},
+			n2: func() Nonce {
+				n, err := NewNonce()
+				if err != nil {
+					t.Fatal(err)
+				}
+				return n
+			},
+			expect: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			n1, n2 := tt.n1(), tt.n2()
+			assert.Equal(t, tt.expect, n1.Equal(n2))
+			assert.Equal(t, !tt.expect, n1.NotEqual(n2))
+		})
+	}
+}

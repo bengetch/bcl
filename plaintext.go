@@ -26,10 +26,14 @@ func PlaintextFromBase64(arg string) (Plaintext, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Plaintext(b), nil
+	return PlaintextFromBytes(b)
 }
 
 // ToBase64 converts a plaintext to a base64 encoded string
 func (p Plaintext) ToBase64() string {
 	return base64.StdEncoding.EncodeToString(p)
+}
+
+func (p Plaintext) String() string {
+	return string(p)
 }

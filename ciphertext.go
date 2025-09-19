@@ -26,7 +26,7 @@ func CiphertextFromBase64(arg string) (Ciphertext, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Ciphertext(b), nil
+	return CiphertextFromBytes(b)
 }
 
 // ToBase64 converts a ciphertext to a base64 encoded string

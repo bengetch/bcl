@@ -46,7 +46,7 @@ func AsymmetricEncrypt(publicKey PublicKey, plaintext Plaintext) (Ciphertext, er
 	if rc != 0 {
 		return nil, fmt.Errorf("unexpected nonzero return from libsodium: %d", int(rc))
 	}
-	return Ciphertext(out), nil
+	return CiphertextFromBytes(out)
 }
 
 // AsymmetricDecrypt decrypts a ciphertext using the supplied secret key
@@ -70,5 +70,5 @@ func AsymmetricDecrypt(secretKey SecretKey, ciphertext Ciphertext) (Plaintext, e
 	if rc != 0 {
 		return nil, fmt.Errorf("unexpected nonzero return from libsodium: %d", int(rc))
 	}
-	return Plaintext(out), nil
+	return PlaintextFromBytes(out)
 }

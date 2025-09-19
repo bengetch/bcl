@@ -60,7 +60,7 @@ func (s SecretKey) Hash() uint64 {
 	return h.Sum64()
 }
 
-// Equal returns whether this secret key is equal to another secret key
+// Equal returns whether a secret key is equal to another secret key
 func (s SecretKey) Equal(other SecretKey) bool {
 	if len(s) != len(other) {
 		return false
@@ -77,7 +77,7 @@ func (s SecretKey) Equal(other SecretKey) bool {
 	return rc == 0
 }
 
-// NotEqual returns whether this secret key is not equal to another secret key
+// NotEqual returns whether a secret key is not equal to another secret key
 func (s SecretKey) NotEqual(other SecretKey) bool {
 	return !s.Equal(other)
 }

@@ -44,7 +44,7 @@ func SymmetricEncrypt(secretKey SecretKey, plaintext Plaintext, nonce Nonce) (Ci
 
 	ret := append([]byte{}, nonce...)
 	ret = append(ret, out[CryptoSecretBoxBoxZeroBytes:]...)
-	return Ciphertext(ret), nil
+	return CiphertextFromBytes(ret)
 }
 
 // SymmetricDecrypt decrypts a ciphertext using the supplied secret key
@@ -70,5 +70,5 @@ func SymmetricDecrypt(secretKey SecretKey, ciphertext Ciphertext) (Plaintext, er
 	if len(out) < CryptoSecretBoxZeroBytes {
 		return nil, ErrBadDecryptionOutput
 	}
-	return Plaintext(out[CryptoSecretBoxZeroBytes:]), nil
+	return PlaintextFromBytes(out[CryptoSecretBoxZeroBytes:])
 }

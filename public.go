@@ -74,7 +74,7 @@ func (p PublicKey) Hash() uint64 {
 	return h.Sum64()
 }
 
-// Equal returns whether this public key is equal to another public key
+// Equal returns whether a public key is equal to another public key
 func (p PublicKey) Equal(other PublicKey) bool {
 	if len(p) != len(other) {
 		return false
@@ -91,7 +91,7 @@ func (p PublicKey) Equal(other PublicKey) bool {
 	return rc == 0
 }
 
-// NotEqual returns whether this public key is not equal to another public key
+// NotEqual returns whether a public key is not equal to another public key
 func (p PublicKey) NotEqual(other PublicKey) bool {
 	return !p.Equal(other)
 }
